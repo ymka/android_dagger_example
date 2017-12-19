@@ -26,15 +26,19 @@ class MainActivity : AppCompatActivity(), HasFragmentInjector {
     lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         Logger.log("Create MainActivity::class")
         AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fragment = GreenFragment()
-        fragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit()
+        if (savedInstanceState == null) {
+            Logger.log("Add fragment")
+            val fragment = GreenFragment()
+            fragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit()
+        }
         startSecondActivityBtn.setOnClickListener {
             startActivity(Intent(this, EmptyActivity::class.java)) }
 
+        presenter.name
         replaceFragment.setOnClickListener { replaceFragment() }
     }
 

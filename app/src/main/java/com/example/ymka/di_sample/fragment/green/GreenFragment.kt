@@ -20,9 +20,9 @@ class GreenFragment : Fragment() {
     lateinit var presenter: GreenPresenter
 
     override fun onAttach(context: Context?) {
-        super.onAttach(context)
         Logger.log("Attach GreenFragment::class")
         AndroidInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
